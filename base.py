@@ -30,7 +30,7 @@ def main():
         # Main loop
         num = 0
         while True:
-            print("MAIN LOOP cikle:",  num , "   +++++++++++++++++   ")
+            print("MAIN LOOP cikle:",  num , " ********** ")
             num = num + 1
             clk = 0
             time.sleep(5)
