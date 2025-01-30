@@ -6,7 +6,7 @@ def periodic_interrupt():
     # 
     global timer
     global clk
-    timer = threading.Timer(0.1, periodic_interrupt)  # interval 2 s
+    timer = threading.Timer(1, periodic_interrupt)  # interval 2 s
     timer.start()
     print("work INT!", clk)
     st = "+"
@@ -23,21 +23,20 @@ def main():
     
     # Start first int
     global timer
-    timer = threading.Timer(0.1, periodic_interrupt)  # interval 2 s
+    timer = threading.Timer(1, periodic_interrupt)  # interval 2 s
     timer.start()
 
     try:
         # Main loop
         num = 0
         while True:
-            print("Выполнение программы:",  num , "   +++++++++++++++++   ")
+            print("MAIN LOOP cikle:",  num , "   +++++++++++++++++   ")
             num = num + 1
             clk = 0
             time.sleep(5)
             pass
     except KeyboardInterrupt:
-        print("Остановка программы.")
-        timer.cancel()  # Останавливаем таймер при завершении программы
-
+        print("Stoping programm.")
+        timer.cancel()  # Stop timers
 if __name__ == "__main__":
     main()
