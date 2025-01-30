@@ -1,21 +1,43 @@
-import pygame, math
+import threading
+import time
 
-#colors
-black = (0, 0, 0)
 
-size = (500, 500)
-screen = pygame.display.set_mode(size)
+def periodic_interrupt():
+    # Повторный вызов функции с тем же интервалом
+    global timer
+    global clk
+    timer = threading.Timer(0.1, periodic_interrupt)  # Устанавливаем интервал в 2 секунды
+    timer.start()
+    #print("Сработало прерывание!", clk)
+    st = "+"
+    for i in range(clk):
+        st =  st + "+"
+    print(st)
+    clk = clk + 1
 
-a = b = 200
 
-clock = pygame.time.Clock()
-FPS = 60
+def main():
+    global clk
+    clk = 0
+    print("Программа начала выполнение.")
+    
+    # Запускаем первый вызов прерывания
+    global timer
+    timer = threading.Timer(0.1, periodic_interrupt)  # Устанавливаем интервал в 2 секунды
+    timer.start()
 
-for i in range(1, 361, 3):
-    clock.tick(FPS)
-    angle = i * 3.14 / 180
-    a = 100 * math.cos(angle) + 300
-    b = 100 * math.sin(angle) + 300
-    screen.fill(black)
-    pygame.draw.polygon(screen, (255, 0, 255), [(int (a), int (b)),(int (a) - 20, int (b) + 10), (int (a) + 20, int (b) + 10)])
-    pygame.display.update()
+    try:
+        # Основной цикл программы
+        num = 0
+        while True:
+            print("Выполнение программы:",  num , "   +++++++++++++++++   ")
+            num = num + 1
+            clk = 0
+            time.sleep(5)
+            pass
+    except KeyboardInterrupt:
+        print("Остановка программы.")
+        timer.cancel()  # Останавливаем таймер при завершении программы
+
+if __name__ == "__main__":
+    main()
