@@ -3,12 +3,12 @@ import time
 
 
 def periodic_interrupt():
-    # Повторный вызов функции с тем же интервалом
+    # 
     global timer
     global clk
-    timer = threading.Timer(0.1, periodic_interrupt)  # Устанавливаем интервал в 2 секунды
+    timer = threading.Timer(0.1, periodic_interrupt)  # interval 2 s
     timer.start()
-    #print("Сработало прерывание!", clk)
+    print("work INT!", clk)
     st = "+"
     for i in range(clk):
         st =  st + "+"
@@ -19,15 +19,15 @@ def periodic_interrupt():
 def main():
     global clk
     clk = 0
-    print("Программа начала выполнение.")
+    print("Prog start point.")
     
-    # Запускаем первый вызов прерывания
+    # Start first int
     global timer
-    timer = threading.Timer(0.1, periodic_interrupt)  # Устанавливаем интервал в 2 секунды
+    timer = threading.Timer(0.1, periodic_interrupt)  # interval 2 s
     timer.start()
 
     try:
-        # Основной цикл программы
+        # Main loop
         num = 0
         while True:
             print("Выполнение программы:",  num , "   +++++++++++++++++   ")
