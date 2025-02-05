@@ -15,6 +15,19 @@ def periodic_interrupt():
     print(st)
     clk = clk + 1
 
+def periodic_interrupt():
+    # 
+    global timer
+    global clk
+    timer = threading.Timer(1, periodic_interrupt)  # interval 2 s
+    timer.start()
+    print("work INT!", clk)
+    st = "+"
+    for i in range(clk):
+        st =  st + "+"
+    print(st)
+    clk = clk + 1
+
 
 def main():
     global clk
@@ -38,5 +51,6 @@ def main():
     except KeyboardInterrupt:
         print("Stoping programm.")
         timer.cancel()  # Stop timers
+
 if __name__ == "__main__":
     main()
