@@ -3,7 +3,7 @@ import rospy
 from geometry_msgs.msg import Twist
 import sys, select, termios, tty
 
-# Управляющие клавиши
+# Control keys
 MOVE_BINDINGS = {
     'w': (1, 0),  # Forward
     's': (-1, 0), # Revers
@@ -25,12 +25,12 @@ def get_key():
     return key
 
 if __name__ == '__main__':
-    settings = termios.tcgetattr(sys.stdin)  # Сохраняем настройки терминала
+    settings = termios.tcgetattr(sys.stdin)  # Save config terminal
 
-    rospy.init_node('teleop_keyboard')  # Инициализируем узел
-    pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)  # Публикуем в топик /cmd_vel
+    rospy.init_node('teleop_keyboard')  # init node
+    pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)  # send to topic /cmd_vel
 
-    print("Управление:\nW - Вперёд\nS - Назад\nA - Влево\nD - Вправо\nX - Стоп\nCtrl+C - Выход")
+    print("Controls:\nW - Forward\nS - Revers\nA - Left\nD - Right\nX - Stop\nCtrl+C - Exit")
 
     try:
         while not rospy.is_shutdown():
@@ -41,17 +41,17 @@ if __name__ == '__main__':
                 twist = Twist()
                 twist.linear.x = linear * LINEAR_SPEED
                 twist.angular.z = angular * ANGULAR_SPEED
-                pub.publish(twist)  # Отправляем сообщение
+                pub.publish(twist)  # send message
                 
-                rospy.loginfo(f"Опубликовано: линейная скорость = {twist.linear.x}, угловая скорость = {twist.angular.z}")
+                rospy.loginfo(f"Send: lin speed = {twist.linear.x}, ang speed = {twist.angular.z}")
             
             elif key == '\x03':  # Ctrl+C
                 break
 
     except Exception as e:
-        print(f"Ошибка: {e}")
+        print(f"Error: {e}")
 
     finally:
         twist = Twist()
-        pub.publish(twist)  # Останавливаем робота перед выходом
-        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)  # Восстанавливаем терминал
+        pub.publish(twist)  # Stop robots
+        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)  # Restor terminal
