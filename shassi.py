@@ -5,8 +5,6 @@ from geometry_msgs.msg import Twist
 from pyA20.gpio import gpio
 from pyA20.gpio import port
 
-def
-
 def callback(data):
     #rospy.loginfo("I recive message: %s", data)
     #print(data)
