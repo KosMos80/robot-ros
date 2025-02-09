@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import rospy
 from geometry_msgs.msg import Twist
 import sys, select, termios, tty
@@ -37,21 +37,22 @@ if __name__ == '__main__':
             key = get_key()
             if key in MOVE_BINDINGS:
                 linear, angular = MOVE_BINDINGS[key]
-                
+
                 twist = Twist()
                 twist.linear.x = linear * LINEAR_SPEED
                 twist.angular.z = angular * ANGULAR_SPEED
                 pub.publish(twist)  # send message
-                
-                rospy.loginfo(f"Send: lin speed = {twist.linear.x}, ang speed = {twist.angular.z}")
-            
+
+                # rospy.loginfo("Send: lin speed =", twist.linear.x, "ang speed = ", twist.angular.z)
+
             elif key == '\x03':  # Ctrl+C
                 break
 
     except Exception as e:
-        print(f"Error: {e}")
+        print("Error: ", e)
 
     finally:
         twist = Twist()
         pub.publish(twist)  # Stop robots
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)  # Restor terminal
+
