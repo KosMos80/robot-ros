@@ -6,8 +6,11 @@ from pyA20.gpio import gpio
 from pyA20.gpio import port
 
 def callback(data):
-    rospy.loginfo("I recive message: %s", data.data)
-    print(data.data)
+    #rospy.loginfo("I recive message: %s", data)
+    #print(data)
+    lin = data.linear.x
+    ang = data.angular.z
+    print("Lin Sp:", lin, " Ang Sp: ", ang)
 
 '''
     if(data.data == 1):
@@ -45,7 +48,7 @@ if __name__ == '__main__':
         listener()
     except rospy.ROSInterruptException:
         pass
-    
+
     finally:
         gpio.output(port.PA7, gpio.LOW)
         gpio.output(port.PA8, gpio.LOW)
