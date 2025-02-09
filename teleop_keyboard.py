@@ -13,7 +13,7 @@ MOVE_BINDINGS = {
 }
 
 # Speed
-LINEAR_SPEED = 0.5  # Line speed
+LINEAR_SPEED = 1.0  # Line speed
 ANGULAR_SPEED = 1.0  # ang speed
 
 def get_key():
