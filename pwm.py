@@ -42,6 +42,7 @@ def main():
             pwm = pwm + 1
             if(pwm == 32):
                 pwm = 0
+            print("PWM = ", pwm)
             time.sleep(1)
             pass
     except KeyboardInterrupt:
