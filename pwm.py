@@ -6,11 +6,11 @@ from pyA20.gpio import port
 
 
 def periodic_interrupt():
-    # 
+    #
     global timer
     global clk
     global pwm
-    timer = threading.Timer(0.0025, periodic_interrupt)  # interval 2 s
+    timer = threading.Timer(0.0001, periodic_interrupt)  # interval 2 s
     timer.start()
     clk = clk + 1
     if(clk == 32):
@@ -22,14 +22,16 @@ def periodic_interrupt():
 
 
 def main():
+    gpio.init()
     gpio.setcfg(port.PA7, gpio.OUTPUT)
+    gpio.setcfg(port.PA9, gpio.OUTPUT)
 
     global clk
     global pwm
     pwm = 0
     clk = 0
     print("Prog start point.")
-    
+
     # Start first int
     global timer
     timer = threading.Timer(1, periodic_interrupt)  # interval 2 s
@@ -43,7 +45,10 @@ def main():
             if(pwm == 32):
                 pwm = 0
             print("PWM = ", pwm)
-            time.sleep(1)
+            gpio.output(port.PA9, gpio.HIGH)
+            time.sleep(0.1)
+            gpio.output(port.PA9, gpio.LOW)
+            time.sleep(0.9)
             pass
     except KeyboardInterrupt:
         print("Stoping programm.")
