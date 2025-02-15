@@ -4,13 +4,14 @@ import time
 from pyA20.gpio import gpio
 from pyA20.gpio import port
 
+timer_const = 0.0001
 
 def periodic_interrupt():
     #
     global timer
     global clk
     global pwm
-    timer = threading.Timer(0.0001, periodic_interrupt)  # interval 2 s
+    timer = threading.Timer(timer_const, periodic_interrupt)  # interval 2 s
     timer.start()
     clk = clk + 1
     if(clk == 32):
@@ -34,7 +35,7 @@ def main():
 
     # Start first int
     global timer
-    timer = threading.Timer(1, periodic_interrupt)  # interval 2 s
+    timer = threading.Timer(timer_const, periodic_interrupt)  # interval 2 s
     timer.start()
 
     try:
