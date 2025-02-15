@@ -9,11 +9,14 @@ BAUDRATE = 9600
 ser = serial.Serial(UART_PORT, BAUDRATE, timeout=1)
 print("Open port: ", UART_PORT)
 
+calc = int(0)
+
 try:
     while True:
         # Send data
         ser.write(b"Hello UART!\n")
-        print("Send data: Hello UART!")
+        print("Send data: Hello UART! Num: ", calc)
+        calc = calc + 1
 
         # Read data (if data present)
         if ser.in_waiting:
