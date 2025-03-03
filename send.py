@@ -27,3 +27,7 @@ try:
         if(com == 'x'):
             print(" To back ")
         ser.write(b"Hello UART!\n")
+
+except KeyboardInterrupt:
+    print("\nExit...")
+    ser.close()
